@@ -7,9 +7,9 @@ package OfficeSide.Controller;
 
 import OfficeSide.Models.ItemDAO;
 import OfficeSide.Models.ItemDTO;
-import OfficeSide.Views.View;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,23 +17,28 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    ItemDAO model;
-    View view; 
+    private static Controller SINGLETON_CONTROLLER = null;
 
-    public Controller(ItemDAO model, View view) {
-        this.model = model;
-        this.view = view;
+    private Controller() {
     }
 
-    public Controller() {
+    public static Controller getInstance() {
+        if (SINGLETON_CONTROLLER == null) {
+            synchronized (Controller.class) {
+                SINGLETON_CONTROLLER = new Controller();
+            }
+        }
+        return SINGLETON_CONTROLLER;
+
+    }
+    ItemDAO itemDAO = new ItemDAO();
+
+    public List<ItemDTO> loadItems() {
+        try {
+            return itemDAO.loadAllItems();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public ArrayList<ItemDTO> getItems() throws SQLException {
-        return model.loadAllItems();
-    }
-
-    public void updateViewData(ArrayList<ItemDTO> data) {
-        view.consoleAllItem(data);
-    }
-  
 }

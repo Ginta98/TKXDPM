@@ -33,6 +33,7 @@ public class Connector {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             return rs;
+           
         } catch (SQLException ex) {
             Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
             return null;
