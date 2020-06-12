@@ -6,36 +6,41 @@
 package OfficeSide.Views;
 
 import OfficeSide.Models.ItemDTO;
+import OfficeSide.Models.OrderDTO;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 
 /**
  *
  * @author Wind
  */
-public class ItemListView extends JFrame {
+public class OrderListView extends JFrame {
 
-    List<ItemDTO> items = null;
+    List<OrderDTO> items = null;
 
-    public ItemListView(List<ItemDTO> items) {
-        setTitle("Items");
+    public OrderListView(List<OrderDTO> items) {
+        setTitle("Orders");
         this.items = items;
         this.setSize(693, 458);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
-        String data[][] = new String[items.size()][4];
+        String data[][] = new String[items.size()][6];
         for (int i = 0; i < items.size(); i++) {
-            String[] row = {String.valueOf(items.get(i).getId()), items.get(i).getName(), String.valueOf(items.get(i).getPrice()), String.valueOf(items.get(i).getNumber())};
+            String[] row = {
+                String.valueOf(items.get(i).getId()),
+                items.get(i).getName(),
+                items.get(i).getDateCreated(),
+                String.valueOf(items.get(i).getAmount()),
+                String.valueOf(items.get(i).getStatus()),
+                String.valueOf(items.get(i).getItem_id())
+            };
             data[i] = row;
         }
-        String[] columnNames = {"id", "name", "price", "number"};
+        String[] columnNames = {"id", "name", "date_created", "amount", "status", "item_id"};
         JTable j = new JTable(data, columnNames);
         j.setEnabled(false);
         getContentPane().setLayout(new FlowLayout());

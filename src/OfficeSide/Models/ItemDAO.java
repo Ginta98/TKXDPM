@@ -27,11 +27,4 @@ public class ItemDAO {
         return items;
     }
 
- 
-
-
-//    public void createItem(ItemDTO item) {
-//        ResultSet rs = connector.executeQuery("INSERT INTO `Item` (`id`, `name`, `price`, `number`) VALUES ('5', 'Laptop', '1200', '200');");
-//    }
-
 }

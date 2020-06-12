@@ -7,6 +7,7 @@ package OfficeSide.Views;
 
 import OfficeSide.Controller.Controller;
 import OfficeSide.Models.ItemDTO;
+import OfficeSide.Models.OrderDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,12 @@ import java.util.List;
  * @author Wind
  */
 public class OfficeSideMainScreen extends javax.swing.JFrame {
-    
-    Controller controller = Controller.getInstance();
 
     /**
      * Creates new form OfficeSideMainScreen
      */
     public OfficeSideMainScreen() {
-        
+        setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -58,6 +57,11 @@ public class OfficeSideMainScreen extends javax.swing.JFrame {
         });
 
         showOdersBtn.setText("Show Items Ordered");
+        showOdersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showOdersBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,15 +113,22 @@ public class OfficeSideMainScreen extends javax.swing.JFrame {
 
     private void createOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createOrderBtnActionPerformed
         // TODO add your handling code here:
+        new CreateOrder().setVisible(true);
     }//GEN-LAST:event_createOrderBtnActionPerformed
 
     private void listItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listItemBtnActionPerformed
         
-        List<ItemDTO> items = controller.loadItems();
+        List<ItemDTO> items = Controller.getInstance().loadItems();
         new ItemListView(items).setVisible(true);
         
 
     }//GEN-LAST:event_listItemBtnActionPerformed
+
+    private void showOdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOdersBtnActionPerformed
+        // TODO add your handling code here:
+        List<OrderDTO> items = Controller.getInstance().loadOrders();
+        new OrderListView(items).setVisible(true);
+    }//GEN-LAST:event_showOdersBtnActionPerformed
 
     /**
      * @param args the command line arguments

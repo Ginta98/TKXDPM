@@ -31,14 +31,25 @@ public class Connector {
     public ResultSet executeQuery(String query) {
         try {
             Statement stmt = connection.createStatement();
+            System.out.println("Executing query: " + query);
             ResultSet rs = stmt.executeQuery(query);
             return rs;
-           
         } catch (SQLException ex) {
             Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
 
+    }
+
+    public boolean updateQuery(String query) {
+        try {
+            Statement stmt = connection.createStatement();
+            System.out.println("Executing query: " + query);
+            stmt.execute(query);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean closeConnection() {
