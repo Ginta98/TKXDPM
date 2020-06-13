@@ -10,8 +10,22 @@ package OfficeSide.Models;
  * @author Wind
  */
 public class OrderDTO {
-    int id,amount,status,item_id;
-    String dateCreated,name;
+   int id,status;
+   String deliver_date;
+
+    public OrderDTO(int id, int status, String deliver_date) {
+        this.id = id;
+        this.status = status;
+        this.deliver_date = deliver_date;
+    }
+
+    public OrderDTO(int status, String deliver_date) {
+        this.status = status;
+        this.deliver_date = deliver_date;
+    }
+
+    public OrderDTO() {
+    }
 
     public int getId() {
         return id;
@@ -19,14 +33,6 @@ public class OrderDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public int getStatus() {
@@ -37,40 +43,13 @@ public class OrderDTO {
         this.status = status;
     }
 
-    public int getItem_id() {
-        return item_id;
+    public String getDeliver_date() {
+        return deliver_date;
     }
 
-    public void setItem_id(int item_id) {
-        this.item_id = item_id;
+    public void setDeliver_date(String deliver_date) {
+        this.deliver_date = deliver_date;
     }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public OrderDTO() {
-    }
-
-    public OrderDTO(int id, int amount, int status, int item_id, String dateCreated, String name) {
-        this.id = id;
-        this.amount = amount;
-        this.status = status;
-        this.item_id = item_id;
-        this.dateCreated = dateCreated;
-        this.name = name;
-    }
+   
     
 }

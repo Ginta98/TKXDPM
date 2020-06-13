@@ -7,6 +7,8 @@ package OfficeSide.Controller;
 
 import OfficeSide.Models.ItemDAO;
 import OfficeSide.Models.ItemDTO;
+import OfficeSide.Models.ItemOrderDAO;
+import OfficeSide.Models.ItemOrderDTO;
 import OfficeSide.Models.OrderDAO;
 import OfficeSide.Models.OrderDTO;
 import java.awt.image.SampleModel;
@@ -37,6 +39,7 @@ public class Controller {
     }
     ItemDAO itemDAO = new ItemDAO();
     OrderDAO orderDAO = new OrderDAO();
+    ItemOrderDAO itemOrderDAO = new ItemOrderDAO();
 
     public List<ItemDTO> loadItems() {
         try {
@@ -50,11 +53,41 @@ public class Controller {
         return orderDAO.createOrder(orderDTO);
     }
 
+    public boolean createItemOrder(ItemOrderDTO itemOrderDTO) {
+        return itemOrderDAO.createItemOrder(itemOrderDTO);
+    }
+
     public List<OrderDTO> loadOrders() {
         try {
-            return orderDAO.loadAllOrders();
+            List<OrderDTO> returnValue = orderDAO.loadAllOrders();
+            return returnValue;
+
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public List<ItemOrderDTO> getOrderDetail(int orderID) {
+        try {
+            return itemOrderDAO.getItemsOfOrderByOrderID(orderID);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean deleteOrderItemByOrderID(int orderID) {
+        try {
+            return itemOrderDAO.deleteItemOrderByOrderID(orderID);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean deleteOrder(int orderID) {
+        try {
+            return orderDAO.deleteOrder(orderID);
+        } catch (Exception e) {
+            return false;
         }
     }
 

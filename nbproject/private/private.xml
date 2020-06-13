@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/ItemListView.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/OrderView.java</file>
             <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Models/ItemDAO.java</file>
-            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/OfficeSideMainScreen.java</file>
-            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Connector/Connector.java</file>
-            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/CreateOrder.java</file>
-            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/OrderListView.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/TestCode.java</file>
             <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Models/OrderDTO.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Models/ItemOrderDTO.java</file>
             <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Models/OrderDAO.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Views/OrderDetailView.java</file>
             <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Controller/Controller.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/OfficeSide/Models/ItemOrderDAO.java</file>
+            <file>file:/C:/Users/Wind/Documents/NetBeansProjects/TKXDPM/src/MainScreen.java</file>
         </group>
     </open-files>
 </project-private>
