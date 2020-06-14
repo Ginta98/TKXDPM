@@ -42,6 +42,33 @@ public class OrderDAO {
 
     }
 
+    public List<OrderDTO> loadAllWaitingOrders() throws SQLException {
+        List<OrderDTO> orders = new ArrayList<>();
+        String sql = "Select * from `Order` where status = 0;";
+        ResultSet rs = connector.executeQuery(sql);
+        while (rs.next()) {
+            orders.add(new OrderDTO(rs.getInt("id"), rs.getInt("status"), rs.getString("deliver_date")));
+        }
+        return orders;
+
+    }
+
+    public List<OrderDTO> loadAllConfirmedOrders() throws SQLException {
+        List<OrderDTO> orders = new ArrayList<>();
+        String sql = "Select * from `Order` where status = 1;";
+        ResultSet rs = connector.executeQuery(sql);
+        while (rs.next()) {
+            orders.add(new OrderDTO(rs.getInt("id"), rs.getInt("status"), rs.getString("deliver_date")));
+        }
+        return orders;
+
+    }
+
+    public boolean updateStatusOrderByOrderID(int orderId, int status) {
+        String sql = "Update `Order` set status = " + status + " where id =" + orderId;
+        return connector.updateQuery(sql);
+    }
+
     public boolean createOrder(OrderDTO orderDTO) {
         String values = "("
                 + orderDTO.getStatus() + ",'"

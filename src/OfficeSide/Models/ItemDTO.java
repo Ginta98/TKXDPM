@@ -17,6 +17,12 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
+    public ItemDTO(String name, int price, int number) {
+        this.name = name;
+        this.price = price;
+        this.number = number;
+    }
+
     public ItemDTO(int id, int price, int number, String name) {
         this.id = id;
         this.price = price;

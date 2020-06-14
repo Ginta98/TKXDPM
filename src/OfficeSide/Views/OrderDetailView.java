@@ -18,16 +18,17 @@ import javax.swing.table.DefaultTableModel;
  * @author Wind
  */
 public class OrderDetailView extends javax.swing.JFrame {
-
+    
     List<ItemDTO> items;
     List<ItemOrderDTO> orderDetail;
     DefaultTableModel itemTableModel;
     DefaultTableModel orderTableModel;
     int orderID;
-
+    int status;
+    
     public void loadItems() {
         items = Controller.getInstance().loadItems();
-
+        
         int rowCount = itemTableModel.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             itemTableModel.removeRow(i);
@@ -36,11 +37,17 @@ public class OrderDetailView extends javax.swing.JFrame {
             itemTableModel.addRow(new Object[]{items.get(i).getId(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getNumber()});
         }
     }
-
-    public OrderDetailView(int orderID) {
-        setResizable(false);
-        this.orderID = orderID;
+    
+    public OrderDetailView(int orderID, int status) {
         initComponents();
+        this.status = status;
+        if (status != 0) {
+            addButton.setEnabled(false);
+            removeBtn.setEnabled(false);
+            commitBtn.setEnabled(false);
+        }
+        setResizable(false);
+        this.orderID = orderID;  
         itemTableModel = (DefaultTableModel) tableListItems.getModel();
         orderTableModel = (DefaultTableModel) orderTable.getModel();
         loadItems();
@@ -49,7 +56,7 @@ public class OrderDetailView extends javax.swing.JFrame {
         for (int i = 0; i < orderDetail.size(); i++) {
             orderTableModel.addRow(new Object[]{orderDetail.get(i).getItemID(), orderDetail.get(i).getAmount()});
         }
-
+        
     }
 
     /**
@@ -235,10 +242,10 @@ public class OrderDetailView extends javax.swing.JFrame {
                     break;
                 }
             }
-
+            
             System.out.println(exist);
             if (exist) {
-
+                
                 int originValue = (Integer) orderTableModel.getValueAt(indexExist, 1);
                 System.out.println("origin:" + originValue);
                 int extraValue = (Integer) amountSpinner.getValue();
@@ -249,7 +256,7 @@ public class OrderDetailView extends javax.swing.JFrame {
                 orderTableModel.addRow(new Object[]{itemTableModel.getValueAt(index, 0), amountSpinner.getValue()});
             }
         }
-
+        
 
     }//GEN-LAST:event_addButtonActionPerformed
 

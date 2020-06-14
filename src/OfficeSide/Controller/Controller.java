@@ -49,6 +49,39 @@ public class Controller {
         }
     }
 
+    public List<ItemDTO> loadItemsByOrderId(int orderId) {
+        try {
+            return itemDAO.loadAllItemsByOrderId(orderId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean deleteItem(int itemId) {
+        try {
+            return itemDAO.deleteItem(itemId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateItem(ItemDTO itemDTO) {
+        try {
+            return itemDAO.updateItem(itemDTO);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean createItem(ItemDTO itemDTO) {
+        try {
+            return itemDAO.createItem(itemDTO);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean createOrder(OrderDTO orderDTO) {
         return orderDAO.createOrder(orderDTO);
     }
@@ -60,6 +93,26 @@ public class Controller {
     public List<OrderDTO> loadOrders() {
         try {
             List<OrderDTO> returnValue = orderDAO.loadAllOrders();
+            return returnValue;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<OrderDTO> loadWaitingOrders() {
+        try {
+            List<OrderDTO> returnValue = orderDAO.loadAllWaitingOrders();
+            return returnValue;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<OrderDTO> loadConfirmedOrders() {
+        try {
+            List<OrderDTO> returnValue = orderDAO.loadAllConfirmedOrders();
             return returnValue;
 
         } catch (Exception e) {
@@ -83,9 +136,25 @@ public class Controller {
         }
     }
 
+    public boolean deleteOrderItemByItemID(int itemID) {
+        try {
+            return itemOrderDAO.deleteItemOrderByItemID(itemID);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean deleteOrder(int orderID) {
         try {
             return orderDAO.deleteOrder(orderID);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean updateOrderByOrderId(int orderID, int status) {
+        try {
+            return orderDAO.updateStatusOrderByOrderID(orderID, status);
         } catch (Exception e) {
             return false;
         }

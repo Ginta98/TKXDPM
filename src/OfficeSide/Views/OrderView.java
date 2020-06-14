@@ -170,7 +170,8 @@ public class OrderView extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = orderTable.getSelectedRow();
         int orderID = (int) orderTableModel.getValueAt(index, 0);
-        new OrderDetailView(orderID).setVisible(true);
+        int status = (int) orderTableModel.getValueAt(index, 1);
+        new OrderDetailView(orderID, status).setVisible(true);
     }//GEN-LAST:event_detailButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
