@@ -80,7 +80,7 @@ public class SiteDAO {
     }
 
     public int getIDSite(String type) throws SQLException {
-        String sql = "Select * from `Account` where type = '" + type + "';";
+        String sql = "Select s.id from `Site` s ,`Account` a where s.name = a.type and a.type = '" + type + "';";
         ResultSet rs = connector.executeQuery(sql);
         int siteId = -1;
         while (rs.next()) {
@@ -100,5 +100,23 @@ public class SiteDAO {
         return siteItems;
     }
 
+    public SiteDTO getSiteInfo(int siteId) throws SQLException {
+        SiteDTO siteDTO = new SiteDTO();
+        String sql = "Select * from Site where id = " + siteId + ";";
+        ResultSet rs = connector.executeQuery(sql);
+        while (rs.next()) {
+            siteDTO.setId(rs.getInt("id"));
+            siteDTO.setName(rs.getString("name"));
+            siteDTO.setDeliverTime(rs.getInt("delivery_time"));
+            siteDTO.setDeliverType(rs.getString("delivery_type"));
+
+        }
+        return siteDTO;
+    }
+
+    public boolean updateDeliveryTimeSite(int siteId, int days) {
+        String sql = "Update `Site` set delivery_time = " + days + " where id = " + siteId + ";";
+        return connector.updateQuery(sql);
+    }
 
 }

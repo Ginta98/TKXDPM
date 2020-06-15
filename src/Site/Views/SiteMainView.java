@@ -17,6 +17,7 @@ public class SiteMainView extends javax.swing.JFrame {
     int siteID;
     String siteName;
     public SiteMainView(int siteID,String siteName) {
+        System.out.println(siteID);
         initComponents();
         this.siteID = siteID;
         this.siteName = siteName;

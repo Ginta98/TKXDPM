@@ -7,8 +7,10 @@ package Site.Views;
 
 import Site.Controller.Controller;
 import OfficeSide.Models.ItemDTO;
+import Site.Models.SiteDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,10 +25,11 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
     DefaultTableModel itemTableModel;
     List<ItemDTO> items;
     int siteID;
-    
+    SiteDTO siteInfo;
+
     public void loadItems() {
         items = Controller.getInstance().getSiteItem(siteID);
-        
+
         int rowCount = itemTableModel.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             itemTableModel.removeRow(i);
@@ -35,10 +38,13 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
             itemTableModel.addRow(new Object[]{items.get(i).getId(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getNumber()});
         }
     }
-    
+
     public ItemProvideSiteView(int siteID) {
         this.siteID = siteID;
+        siteInfo = Controller.getInstance().getSiteInfo(this.siteID);
         initComponents();
+        deliverDay.setValue(siteInfo.getDeliverTime());
+        deliverType.setText(siteInfo.getDeliverType());
         itemTableModel = (DefaultTableModel) itemTable.getModel();
         loadItems();
     }
@@ -57,11 +63,11 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        deliverDay = new javax.swing.JSpinner();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        deliverType = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,11 +109,16 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
         });
 
         jButton4.setText("Set Deliver Day");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Deliver Type");
 
-        jLabel4.setText("jLabel4");
+        deliverType.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,12 +140,12 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deliverDay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
+                        .addComponent(deliverType)
                         .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
@@ -146,13 +157,13 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deliverDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4))
+                                .addComponent(deliverType))
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(6, 6, 6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,24 +187,24 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<ItemDTO> itemInTable = new ArrayList<>();
         for (int i = 0; i < itemTable.getRowCount(); i++) {
-            
+
             int id = (Integer) itemTableModel.getValueAt(i, 0);
             String name = String.valueOf(itemTableModel.getValueAt(i, 1));
             int price = (Integer) itemTableModel.getValueAt(i, 2);
             int amount = (Integer.parseInt(String.valueOf(itemTableModel.getValueAt(i, 3))));
             itemInTable.add(new ItemDTO(id, price, amount, name));
-            
+
         }
         for (int i = 0; i < itemInTable.size(); i++) {
             int oldAmount = items.get(i).getNumber();
             int newAmount = itemInTable.get(i).getNumber();
             int itemID = items.get(i).getId();
             if (oldAmount == newAmount) {
-                
+
             } else {
                 if (oldAmount != 0 && newAmount != 0) {
                     Controller.getInstance().updateSiteItem(siteID, itemID, newAmount);
-                    
+
                 } else if (oldAmount == 0) {
                     Controller.getInstance().createSiteItem(siteID, itemID, newAmount);
                 } else if (newAmount == 0) {
@@ -204,20 +215,33 @@ public class ItemProvideSiteView extends javax.swing.JFrame {
         loadItems();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if ((int) deliverDay.getValue() > 0) {
+            boolean result = Controller.getInstance().updateSiteDeliveryDay(siteID, (int) deliverDay.getValue());
+            if (result) {
+                JOptionPane.showMessageDialog(this, "Success");
+            } else {
+                JOptionPane.showMessageDialog(this, "Fail");
+            }
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JSpinner deliverDay;
+    private javax.swing.JLabel deliverType;
     private javax.swing.JTable itemTable;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 }

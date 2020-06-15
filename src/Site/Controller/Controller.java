@@ -7,6 +7,7 @@ package Site.Controller;
 
 import OfficeSide.Models.ItemDTO;
 import Site.Models.SiteDAO;
+import Site.Models.SiteDTO;
 import Site.Models.SiteItemDTO;
 import java.util.List;
 
@@ -78,6 +79,20 @@ public class Controller {
         }
     }
 
-   
+    public SiteDTO getSiteInfo(int siteId) {
+        try {
+            return siteDAO.getSiteInfo(siteId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean updateSiteDeliveryDay(int siteId, int days) {
+        try {
+            return siteDAO.updateDeliveryTimeSite(siteId, days);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }
