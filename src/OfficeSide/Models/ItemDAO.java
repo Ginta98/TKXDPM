@@ -30,9 +30,9 @@ public class ItemDAO {
 
     public ArrayList<ItemDTO> loadAllItemsByOrderId(int orderID) throws SQLException {
         ArrayList<ItemDTO> items = new ArrayList<>();
-        ResultSet rs = connector.executeQuery("Select i.id,i.name,i.price,i.number from `Item` i, `Order_Item` oi WHERE i.id = oi.item_id AND oi.order_id =" + orderID + ";");
+        ResultSet rs = connector.executeQuery("Select i.id,i.name,i.price,oi.amount from `Item` i, `Order_Item` oi WHERE i.id = oi.item_id AND oi.order_id =" + orderID + ";");
         while (rs.next()) {
-            items.add(new ItemDTO(rs.getInt("id"), rs.getInt("price"), rs.getInt("number"), rs.getString("name")));
+            items.add(new ItemDTO(rs.getInt("id"), rs.getInt("price"), rs.getInt("amount"), rs.getString("name")));
         }
         return items;
     }

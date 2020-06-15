@@ -199,6 +199,11 @@ public class ConfirmedOrderView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        if (index != -1) {
+            int orderID = (int) orderTableModel.getValueAt(index, 0);
+            new ConfirmOrderDetailScreen(orderID).setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

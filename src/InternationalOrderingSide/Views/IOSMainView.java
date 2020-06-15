@@ -5,6 +5,8 @@
  */
 package InternationalOrderingSide.Views;
 
+import Site.Views.LoginSiteForm;
+
 /**
  *
  * @author Wind
@@ -56,7 +58,7 @@ public class IOSMainView extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Back");
+        jButton4.setText("Logout");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -111,6 +113,7 @@ public class IOSMainView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
+        new LoginSiteForm().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

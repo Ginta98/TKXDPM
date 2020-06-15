@@ -5,7 +5,10 @@
  */
 package Site.Controller;
 
+import OfficeSide.Models.ItemDTO;
 import Site.Models.SiteDAO;
+import Site.Models.SiteItemDTO;
+import java.util.List;
 
 /**
  *
@@ -34,4 +37,47 @@ public class Controller {
             return "error";
         }
     }
+
+    public List<ItemDTO> getSiteItem(int siteId) {
+        try {
+            return siteDAO.getSiteItem(siteId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean updateSiteItem(int siteID, int itemID, int amount) {
+        try {
+            return siteDAO.updateSiteItem(siteID, itemID, amount);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean createSiteItem(int siteID, int itemID, int amount) {
+        try {
+            return siteDAO.createNewSiteItem(siteID, itemID, amount);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean deleteSiteItem(int siteID, int itemID) {
+        try {
+            return siteDAO.deleteSiteItem(siteID, itemID);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public int getSiteID(String siteName) {
+        try {
+            return siteDAO.getIDSite(siteName);
+        } catch (Exception e) {
+            return -2;
+        }
+    }
+
+   
+
 }

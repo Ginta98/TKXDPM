@@ -128,14 +128,19 @@ public class WaitingOrderDetailScreen extends javax.swing.JFrame {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        boolean result = Controller.getInstance().updateOrderByOrderId(orderId, 1);
-        if (result) {
-            wov.loadItems();
-            JOptionPane.showMessageDialog(this, "Success");
+        int numberData = itemTable.getRowCount();
+        if (numberData == 0) {
+            JOptionPane.showMessageDialog(this, "Can not accept null Order");
         } else {
-            JOptionPane.showMessageDialog(this, "Fail");
+            boolean result = Controller.getInstance().updateOrderByOrderId(orderId, 1);
+            if (result) {
+                wov.loadItems();
+                JOptionPane.showMessageDialog(this, "Success");
+            } else {
+                JOptionPane.showMessageDialog(this, "Fail");
+            }
+            this.setVisible(false);
         }
-        this.setVisible(false);
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

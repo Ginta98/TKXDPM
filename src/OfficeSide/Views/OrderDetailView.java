@@ -40,6 +40,7 @@ public class OrderDetailView extends javax.swing.JFrame {
     
     public OrderDetailView(int orderID, int status) {
         initComponents();
+         setLocationRelativeTo(null);
         this.status = status;
         if (status != 0) {
             addButton.setEnabled(false);

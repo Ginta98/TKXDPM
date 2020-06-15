@@ -7,6 +7,7 @@ package OfficeSide.Views;
 
 import OfficeSide.Controller.Controller;
 import OfficeSide.Models.OrderDTO;
+import Site.Views.LoginSiteForm;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +37,7 @@ public class OrderView extends javax.swing.JFrame {
 
     public OrderView() {
         setResizable(false);
+        setLocationRelativeTo(null);
         initComponents();
         orderTableModel = (DefaultTableModel) orderTable.getModel();
         loadItems();
@@ -104,7 +106,7 @@ public class OrderView extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Back");
+        jButton4.setText("Logout");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -125,7 +127,7 @@ public class OrderView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(resetBtn)
-                .addGap(57, 57, 57)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -177,6 +179,7 @@ public class OrderView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
+        new LoginSiteForm().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -197,16 +200,21 @@ public class OrderView extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         int index = orderTable.getSelectedRow();
-        int orderID = (int) orderTableModel.getValueAt(index, 0);
-        if (Controller.getInstance().deleteOrderItemByOrderID(orderID)) {
-            if (Controller.getInstance().deleteOrder(orderID)) {
-                loadItems();
-                JOptionPane.showMessageDialog(this, "Success");
+        int status = (int) orderTableModel.getValueAt(index, 1);
+        if (status == 1) {
+            JOptionPane.showMessageDialog(this, "Can not delete Order");
+        } else {
+            int orderID = (int) orderTableModel.getValueAt(index, 0);
+            if (Controller.getInstance().deleteOrderItemByOrderID(orderID)) {
+                if (Controller.getInstance().deleteOrder(orderID)) {
+                    loadItems();
+                    JOptionPane.showMessageDialog(this, "Success");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Fail");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Fail");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
