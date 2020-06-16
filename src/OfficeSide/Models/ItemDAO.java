@@ -62,4 +62,19 @@ public class ItemDAO {
         return connector.updateQuery(sql);
     }
 
+    public boolean addItemAmountWithItemName(String itemName, int amount) {
+        String sql = "Update `Item` set number = " + amount + " where name = '" + itemName + "';";
+        return connector.updateQuery(sql);
+    }
+
+    public int getAmountOfItemWithItemName(String itemName) throws SQLException {
+        String sql = "Select number from Item where name = '" + itemName + "';";
+        ResultSet rs = connector.executeQuery(sql);
+        int result = -1;
+        while (rs.next()) {
+            result = rs.getInt("number");
+        }
+        return result;
+    }
+
 }

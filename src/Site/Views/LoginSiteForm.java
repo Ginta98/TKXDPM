@@ -8,6 +8,7 @@ package Site.Views;
 import InternationalOrderingSide.Views.IOSMainView;
 import OfficeSide.Views.OrderView;
 import Site.Controller.Controller;
+import Stock.View.StockMainView;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,9 +135,11 @@ public class LoginSiteForm extends javax.swing.JFrame {
                 new OrderView().setVisible(true);
             } else if (response.equals("Internatonal_Side")) {
                 new IOSMainView().setVisible(true);
+            } else if (response.equals("Stock")) {
+                new StockMainView().setVisible(true);
             } else {
                 int siteID = Controller.getInstance().getSiteID(response);
-                new SiteMainView(siteID,response).setVisible(true);
+                new SiteMainView(siteID, response).setVisible(true);
             }
         }
         this.setVisible(false);
