@@ -37,7 +37,6 @@ public class OrderView extends javax.swing.JFrame {
 
     public OrderView() {
         setResizable(false);
-        setLocationRelativeTo(null);
         initComponents();
         orderTableModel = (DefaultTableModel) orderTable.getModel();
         loadItems();
