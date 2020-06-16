@@ -201,7 +201,7 @@ public class OrderView extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = orderTable.getSelectedRow();
         int status = (int) orderTableModel.getValueAt(index, 1);
-        if (status == 1) {
+        if (status != 0) {
             JOptionPane.showMessageDialog(this, "Can not delete Order");
         } else {
             int orderID = (int) orderTableModel.getValueAt(index, 0);

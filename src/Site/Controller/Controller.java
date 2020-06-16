@@ -5,6 +5,9 @@
  */
 package Site.Controller;
 
+import InternationalOrderingSide.Models.OrderSiteConvertItemIdToItemNameDTO;
+import InternationalOrderingSide.Models.OrderedSiteDAO;
+import InternationalOrderingSide.Models.OrderedSiteDTO;
 import OfficeSide.Models.ItemDTO;
 import Site.Models.SiteDAO;
 import Site.Models.SiteDTO;
@@ -18,6 +21,7 @@ import java.util.List;
 public class Controller {
 
     SiteDAO siteDAO = new SiteDAO();
+    OrderedSiteDAO orderedSiteDAO = new OrderedSiteDAO();
 
     private Controller() {
     }
@@ -95,4 +99,19 @@ public class Controller {
         }
     }
 
+    public List<OrderSiteConvertItemIdToItemNameDTO> getAllOrderedItemByStatusAndSiteID(int status, int siteID) {
+        try {
+            return orderedSiteDAO.getAllOrderedItemByStatusAndSiteID(status, siteID);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean updateOrderedItemStatusByOrderedSiteId(int id, int status) {
+        try {
+            return orderedSiteDAO.updateOrderedItemStatus(id, status);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

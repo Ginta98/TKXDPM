@@ -6,6 +6,10 @@
 package InternationalOrderingSide.Models;
 
 import OfficeSide.Connector.Connector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +22,21 @@ public class OrderedSiteDAO {
     public boolean addOrderedSite(OrderedSiteDTO orderedSiteDTO) {
         String value = "(" + orderedSiteDTO.getSiteId() + ", " + orderedSiteDTO.getItemId() + ", " + orderedSiteDTO.getAmount() + ", " + orderedSiteDTO.getStatus() + ");";
         String sql = "Insert into `Ordered_Site` (site_id,item_id,amount,status) values " + value;
+        return connector.updateQuery(sql);
+    }
+
+    public List<OrderSiteConvertItemIdToItemNameDTO> getAllOrderedItemByStatusAndSiteID(int status, int siteId) throws SQLException {
+        List<OrderSiteConvertItemIdToItemNameDTO> orderedItems = new ArrayList<>();
+        String sql = "Select os.id,i.name,os.amount,os.status from `Ordered_Site` os, `Item` i WHERE os.item_id = i.id AND os.status =" + status + " and os.site_id =" + siteId + ";";
+        ResultSet rs = connector.executeQuery(sql);
+        while (rs.next()) {
+            orderedItems.add(new OrderSiteConvertItemIdToItemNameDTO(rs.getInt("id"), rs.getString("name"), rs.getInt("amount"), rs.getInt("status")));
+        }
+        return orderedItems;
+    }
+
+    public boolean updateOrderedItemStatus(int orderedItemId, int status) {
+        String sql = "Update `Ordered_Site` set status =" + status + " where id = " + orderedItemId;
         return connector.updateQuery(sql);
     }
 }
